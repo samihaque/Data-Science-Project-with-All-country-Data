@@ -4,7 +4,7 @@ View(All_Countries)
 gdp_data <- All_Countries$gdp
 
 # Plotting histogram for GDP
-hist(gdp_data, main = "Distribution of GDP", xlab = "GDP", ylab = "Frequency", col = "lightblue", border = "black")
+hist(gdp_data, main = "Distribution of GDP", xlab = "GDP", ylab = "Frequency", col = "lightblue", border = "black", breaks= 50)
 
 #----------------------------- x x x ----------------------------------------------
 
@@ -13,7 +13,7 @@ hist(gdp_data, main = "Distribution of GDP", xlab = "GDP", ylab = "Frequency", c
 unemployment_data <- All_Countries$unemployment_pct
 
 # Plotting histogram for Unemployment Percentage
-hist(unemployment_data, main = "Distribution of Unemployment Percentage", xlab = "Unemployment Percentage", ylab = "Frequency", col = "lightgreen", border = "black")
+hist(unemployment_data, main = "Distribution of Unemployment Percentage", xlab = "Unemployment Percentage", ylab = "Frequency", col = "lightgreen", border = "black", breaks= 30)
 
 #----------------------------- x x x ----------------------------------------------
 
@@ -30,4 +30,4 @@ barplot(table(continent_data), main = "Distribution of Countries by Continent", 
 inflation_data <- All_Countries$inflation
 
 # Plotting histogram for Unemployment Percentage
-hist(inflation_data, main = "Distribution of inflation data", xlab = "inflation", ylab = "Frequency", col = "coral", border = "black")
+hist(inflation_data, main = "Distribution of inflation data", xlab = "inflation", ylab = "Frequency", col = "coral", border = "black", breaks= 50)
