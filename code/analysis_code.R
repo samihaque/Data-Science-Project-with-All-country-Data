@@ -36,7 +36,7 @@ hist(inflation_data, main = "Distribution of inflation data", xlab = "inflation"
 
 ------------------------------------------------------------------------------------------------------------
 # ----------------------------------  Milestone 4: Missing data and outliers------------------------------------ 
-------------------------------------------------------------------------------------------------------------
+# ------------------------------------------------------------------------------------------------------------
 
 #--------------------- Missing data and outliers for GDP: ---------------------- 
 
@@ -241,6 +241,57 @@ cat('variance for inflation is:', variance_inflation, '\n')
 standard_deviation_inflation <- sd(data_wOut_inflation_outlier$inflation)
 cat('standard deviation for inflation is:', standard_deviation_inflation, '\n')
 # output: standard deviation for inflation is: 18.06141
+
+#----------------------------- x x x ----------------------------------------------
+
+------------------------------------------------------------------------------------------------------------
+  # ----------------------------------  Milestone 6: Scatterplots and correlation ------------------------------------ 
+# ------------------------------------------------------------------------------------------------------------
+
+#------------------------------------ (GDP v/s inflation) scatter plot and co-relation ---------------------------------
+
+# ------------------ for this calculation we will use dataset without GDP outlier -------------------
+
+# Scatterplot of GDP (x axis) vs inflation (y axis).
+
+plot(inflation ~ gdp, data = data_wOut_gdp_outlier, xlab = "GDP of countries", ylab = "Inflation of countries", main = " (GDP v/s inflation) scatter plot")
+
+# Correlation of GDP & inflation 
+cat('Correlation of GDP & inflation is: ',cor(data_wOut_gdp_outlier$inflation, data_wOut_gdp_outlier$gdp))
+
+  # output: Correlation of GDP & inflation is:  -0.0163888
+
+
+#------------------------------------ (Unemployment v/s inflation) scatter plot and co-relation ---------------------------------
+
+# ------------------ for this calculation we will use original dataset without unemployment null value -------------------
+
+# Scatterplot of unemployment (x axis) vs inflation (y axis).
+
+plot(inflation ~ unemployment_pct, data = All_Countries_data, xlab = "Unemployment Percentage", ylab = "Inflation of countries", main = " (Unemployment v/s inflation) scatter plot")
+
+# Correlation of Unemployment & inflation 
+cat('Correlation of Unemployment & inflation is: ',cor(All_Countries_data$inflation, All_Countries_data$unemployment_pct))
+
+  # output: Correlation of Unemployment & inflation is:  0.07521563
+
+
+
+#------------------------------------ (Unemployment v/s GDP) scatter plot and co-relation ---------------------------------
+
+# ------------------ for this calculation we will use dataset without GDP outlier -------------------
+
+# Scatterplot of Unemployment (x axis) vs GDP (y axis).
+
+plot(gdp ~ unemployment_pct, data = data_wOut_gdp_outlier, xlab = "Unemployment percentage of countries", ylab = "GDP of countries", main = " (Unemployment v/s GDP) scatter plot")
+
+# Correlation of Unemployment & GDP 
+cat('Correlation of Unemployment & GDP is: ',cor(data_wOut_gdp_outlier$gdp, data_wOut_gdp_outlier$unemployment_pct))
+
+# output: Correlation of Unemployment & GDP is:  -0.1117381
+
+
+
 
 
 
