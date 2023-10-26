@@ -10,10 +10,10 @@ hist(gdp_data, main = "Distribution of GDP", xlab = "GDP", ylab = "Frequency", c
 
 #column 2 for analysis: unemployment_pct
 
-unemployment_data <- All_Countries_data$unemployment_pct
+updated_unemployment_data <- All_Countries_data$unemployment_pct
 
 # Plotting histogram for Unemployment Percentage
-hist(unemployment_data, main = "Distribution of Unemployment Percentage", xlab = "Unemployment Percentage", ylab = "Frequency", col = "lightgreen", border = "black", breaks= 30)
+hist(updated_unemployment_data, main = "Distribution of Unemployment Percentage", xlab = "Unemployment Percentage", ylab = "Frequency", col = "lightgreen", border = "black", breaks= 30)
 
 #----------------------------- x x x ----------------------------------------------
 
@@ -90,8 +90,8 @@ All_Countries_data$unemployment_pct[All_Countries_data$unemployment_pct == -1] <
 sum(is.na(All_Countries_data$unemployment_pct))
 
 # making histogram for the updated unemployment data
-unemployment_data <- All_Countries_data$unemployment_pct
-hist(unemployment_data, main = "Distribution of Unemployment Percentage after null value changed", xlab = "Unemployment Percentage", ylab = "Frequency", col = "lightgreen", border = "black", breaks= 30)
+updated_unemployment_data <- All_Countries_data$unemployment_pct
+hist(updated_unemployment_data, main = "Distribution of Unemployment Percentage after null removal", xlab = "Unemployment Percentage", ylab = "Frequency", col = "lightgreen", border = "black", breaks= 30)
 # Null value remove effect: from the histogram of updated unemployment percentage we do see that the frequency of median has increased 
                       # it is because we replaced 15 null values with median value 
 
@@ -140,6 +140,107 @@ hist(data_wOut_inflation_outlier$inflation, main = "Distribution of inflation Pe
   # ----------------------------------  Milestone 5: Measures of center and spread------------------------------------ 
 ------------------------------------------------------------------------------------------------------------
   
-  #--------------------- Measures of center and spread for GDP: ---------------------- 
+#--------------------- Measures of center and spread for GDP: ---------------------- 
 
-mean()
+# Calculating 2% trimmed mean for GDP
+
+# even though we removed outliers for GDP data we can see there are still some extreme value on both side of the histogram 
+    # so we will remove them by 2% trimmed mean to eliminate the influence of outliers or data points on the tails
+trimmed_mean_gdp <- mean(data_wOut_gdp_outlier$gdp, trim= 0.02)
+cat('Trimmed mean for GDP is:', trimmed_mean_gdp, '\n')
+# output: Trimmed mean for GDP is: 208523310859 
+# -----------------------------------------------------------never mind this section-------------------------------------------------
+# # Identify excluded data
+# excluded_data_gdp <- data_wOut_gdp_outlier$gdp[!(data_wOut_gdp_outlier$gdp >= quantile(data_wOut_gdp_outlier$gdp, 0.02) & data_wOut_gdp_outlier$gdp <= quantile(data_wOut_gdp_outlier$gdp, 0.98))]
+# 
+# # Print results
+# print(paste("Trimmed Mean:", trimmed_mean_gdp))
+# print("Excluded Data:")
+# print(excluded_data_gdp)
+# ------------------------------------------------------------------------------------------------------------
+
+# Calculating median for GDP 
+median_gdp <- median(data_wOut_gdp_outlier$gdp)
+cat('Median for GDP is:', median_gdp, '\n')
+# output: Median for GDP is: 39464500000 
+# Calculating variance for GDP 
+variance_gdp <- var(data_wOut_gdp_outlier$gdp)
+cat('variance for GDP is:', variance_gdp, '\n')
+#output: variance for GDP is: 2.944512e+23 
+
+# Calculating standard deviation for GDP 
+standard_deviation_gdp <- sd(data_wOut_gdp_outlier$gdp)
+cat('standard deviation for GDP is:', standard_deviation_gdp, '\n')
+# output: standard deviation for GDP is: 542633606743
+
+#--------------------- Measures of center and spread for Unemployment Percentage: ---------------------- 
+
+# Calculating trimmed mean for Unemployment Percentage
+
+# we can see there are some extreme value on both side of the Unemployment Percentage histogram 
+# so we will remove them by 2% trimmed mean to eliminate the influence of outliers or data points on the tails
+trimmed_mean_unemployment_pct <- mean(updated_unemployment_data, trim = 0.02)
+cat('Trimmed Mean for unemployment pct is:', trimmed_mean_unemployment_pct, '\n')
+# output: Trimmed Mean for unemployment pct is: 7.054032 
+# ----------------------------------------------------------------never mind this section------------------------
+# # Identify excluded data
+# excluded_data_unemployment <- updated_unemployment_data[!(updated_unemployment_data >= quantile(updated_unemployment_data, 0.02) & updated_unemployment_data <= quantile(updated_unemployment_data, 0.98))]
+# 
+# # Print results
+# print(paste("Trimmed Mean:", trimmed_mean_unemployment_pct))
+# print("Excluded Data:")
+# print(excluded_data_unemployment)
+# ------------------------------------------------------------------------------------------------------------
+
+# Calculating median for Unemployment percentage 
+median_unemployment_pct <- median(updated_unemployment_data)
+cat('Median for Unemployment percentaget is:', median_unemployment_pct, '\n')
+# output: Median for Unemployment percentaget is: 5.2005
+
+# Calculating variance for Unemployment percentage  
+variance_unemployment_pct <- var(updated_unemployment_data)
+cat('variance for Unemployment percentage is:', variance_unemployment_pct, '\n')
+# output: variance for Unemployment percentage is: 30.00741
+
+# Calculating standard deviation for Unemployment percentage  
+standard_deviation_unemployment_pct <- sd(updated_unemployment_data)
+cat('standard deviation for Unemployment percentage is:', standard_deviation_unemployment_pct, '\n')
+# output: standard deviation for Unemployment percentage is: 5.477902
+
+#--------------------- Measures of center and spread for Inflation Percentage: ---------------------- 
+
+# Calculating 2% trimmed mean for Inflation Percentage
+
+# even though we removed outliers for Inflation Percentage data we can see there are still some extreme value on both side of the Inflation Percentage histogram 
+# so we will remove them by 2% trimmed mean to eliminate the influence of outliers or data points on the tails
+trimmed_mean_inflation <- mean(data_wOut_inflation_outlier$inflation)
+cat('Trimmed mean for inflation is:', trimmed_mean_inflation, '\n')
+# output: Trimmed mean for inflation is: 11.51069 
+
+# -------------------------------------------------------------never mind this section------------------------
+# # Identify excluded data
+# excluded_data_inflation <- data_wOut_inflation_outlier$inflation[!(data_wOut_inflation_outlier$inflation >= quantile(data_wOut_inflation_outlier$inflation, 0.02) & data_wOut_inflation_outlier$inflation <= quantile(data_wOut_inflation_outlier$inflation, 0.98))]
+# 
+# # Print results
+# print(paste("Trimmed Mean:", trimmed_mean_inflation))
+# print("Excluded Data:")
+# print(excluded_data_inflation)
+# ------------------------------------------------------------------------------------------------------------
+
+# Calculating median for inflation 
+median_inflation <- median(data_wOut_inflation_outlier$inflation)
+cat('Median for inflation is:', median_inflation, '\n')
+# output: Median for inflation is: 7.593975
+
+# Calculating variance for inflation 
+variance_inflation <- var(data_wOut_inflation_outlier$inflation)
+cat('variance for inflation is:', variance_inflation, '\n')
+# output: variance for inflation is: 326.2146 
+
+# Calculating standard deviation for inflation 
+standard_deviation_inflation <- sd(data_wOut_inflation_outlier$inflation)
+cat('standard deviation for inflation is:', standard_deviation_inflation, '\n')
+# output: standard deviation for inflation is: 18.06141
+
+
+
