@@ -291,7 +291,42 @@ cat('Correlation of Unemployment & GDP is: ',cor(data_wOut_gdp_outlier$gdp, data
 # output: Correlation of Unemployment & GDP is:  -0.1117381
 
 
+#----------------------------- x x x ----------------------------------------------
+
+# ------------------------------------------------------------------------------------------------------------
+# ----------------------------------  Milestone 7: Confidence Intervals------------------------------------ 
+# ------------------------------------------------------------------------------------------------------------
+
+# ----------------------------------- for this milestone i'm using dataset without outliers. ----------------
+#--------------------- Confidence Intervals for GDP: ---------------------- 
+
+# Compute 95% confidence interval
+gdp_confidence_interval <- t.test(data_wOut_gdp_outlier$gdp)$conf.int
+
+# Print the confidence interval
+cat('95% confidence interval for GDP is: (',gdp_confidence_interval[1], ',', gdp_confidence_interval[2], ')')
+
+# Output : 95% confidence interval for GDP is: ( 172910486053 , 328219916783 )
 
 
+#--------------------- Confidence Intervals for Unemployment Percentage: ---------------------- 
 
+# Compute 95% confidence interval
+unemployment_confidence_interval <- t.test(All_Countries_data$unemployment_pct)$conf.int
+
+# Print the confidence interval
+cat('95% confidence interval for Unemployment Percentage is: (',unemployment_confidence_interval[1], ',', unemployment_confidence_interval[2], ')')
+
+# Output : 95% confidence interval for Unemployment Percentage is: ( 6.495471 , 8.046869 )
+
+
+#--------------------- Confidence Intervals for Inflation: ---------------------- 
+
+# Compute 95% confidence interval
+inflation_confidence_interval <- t.test(data_wOut_inflation_outlier$inflation)$conf.int
+
+# Print the confidence interval
+cat('95% confidence interval for inflation is: (',inflation_confidence_interval[1], ',', inflation_confidence_interval[2], ')')
+
+# Output : 95% confidence interval for inflation is: ( 8.9464 , 14.07498 )
 
