@@ -32,6 +32,44 @@ inflation_data <- All_Countries_data$inflation
 # Plotting histogram for Unemployment Percentage
 hist(inflation_data, main = "Distribution of inflation data", xlab = "inflation", ylab = "Frequency", col = "coral", border = "black", breaks= 50)
 
+# ------------------------------------------------------------------------------------------------------------
+# -------------------------- Re-doing histograms for few more columns for better regression - 11/19/23 ------------
+# ------------------------------------------------------------------------------------------------------------
+
+#column 5 for analysis: population
+population_data <- All_Countries_data$population
+
+# Plotting histogram for GDP
+hist(population_data, main = "Distribution of population", xlab = "population", ylab = "Frequency", col = "yellow", border = "black", breaks= 50)
+
+#----------------------------- x x x ----------------------------------------------
+
+#column 6 for analysis: central_government_debt_pct_gdp
+
+central_government_debt_pct_data <- All_Countries_data$central_government_debt_pct_gdp
+
+# Plotting histogram for GDP
+hist(central_government_debt_pct_data, main = "Distribution of central government debt pct of gdp", xlab = "central government debt pct of gdp", ylab = "Frequency", col = "blue", border = "black", breaks= 30)
+
+#----------------------------- x x x ----------------------------------------------
+
+#column 7 for analysis: expense_pct_gdp
+
+expense_pct_gdp_data <- All_Countries_data$expense_pct_gdp
+
+# Plotting histogram for GDP
+hist(expense_pct_gdp_data, main = "Distribution of expense pct of gdp", xlab = "expense pct of gdp", ylab = "Frequency", col = 'red', border = "black", breaks= 50)
+
+#----------------------------- x x x ----------------------------------------------
+
+#column 8 for analysis: internet_pct
+
+internet_pct_data <- All_Countries_data$internet_pct
+
+# Plotting histogram for GDP
+hist(internet_pct_data, main = "Distribution of internet pct", xlab = "internet pct", ylab = "Frequency", col = 'darkgreen', border = "black", breaks= 50)
+
+
 #----------------------------- x x x ----------------------------------------------
 
 ------------------------------------------------------------------------------------------------------------
@@ -133,8 +171,100 @@ hist(data_wOut_inflation_outlier$inflation, main = "Distribution of inflation Pe
 # Outliers remove effect: from the histogram we do notice that now we have inflation percent only upto 150 
                     # it is beacue we have removed outliers
 
+# ------------------------------------------------------------------------------------------------------------
+# -------------------------- Re-doing data cleaning for few more columns for better regression - 11/19/23 ------------
+# ------------------------------------------------------------------------------------------------------------
+
+#--------------------- Missing data and outliers for population: ---------------------- 
+
+# checking for null values
+sum(is.na(All_Countries_data$population))
+
+# we found 0 null value in population coloumn. So there is nothing to remove from this
 
 #----------------------------- x x x ----------------------------------------------
+
+#--------------------- Missing data and outliers for central_government_debt_pct_gdp: ---------------------- 
+
+# checking for null values
+sum(is.na(All_Countries_data$central_government_debt_pct_gdp))
+
+# we found 74 null value in population coloumn. 
+#replace null value with -1
+All_Countries_data$central_government_debt_pct_gdp <- replace(All_Countries_data$central_government_debt_pct_gdp, is.na(All_Countries_data$central_government_debt_pct_gdp), -1)
+
+# we count the median value for central_government_debt_pct_gdp in the dataset
+median_central_government_debt_pct_gdp <- median(All_Countries_data$central_government_debt_pct_gdp)
+median_central_government_debt_pct_gdp
+
+# Replace the central_government_debt_pct_gdp in all rows where it is -1 with the median central_government_debt_pct_gdp
+All_Countries_data$central_government_debt_pct_gdp[All_Countries_data$central_government_debt_pct_gdp == -1] <- median_central_government_debt_pct_gdp
+
+# checking for null values again to make sure no missing data there
+sum(is.na(All_Countries_data$central_government_debt_pct_gdp))
+
+# making histogram for the updated central government debt pct gdp
+updated_central_government_debt_pct_gdp <- All_Countries_data$central_government_debt_pct_gdp
+hist(updated_central_government_debt_pct_gdp, main = "Distribution of central government debt pct gdp after null removal", xlab = "central government debt pct gdp", ylab = "Frequency", col = "blue", border = "black", breaks= 30)
+# Null value remove effect: from the histogram of updated central government debt pct gdp we do see that the frequency of median has increased 
+# it is because we replaced 74 null values with median value 
+
+
+#----------------------------- x x x ----------------------------------------------
+
+#--------------------- Missing data and outliers for expense_pct_gdp: ---------------------- 
+
+# checking for null values
+sum(is.na(All_Countries_data$expense_pct_gdp))
+
+# we found 38 null value in population coloumn. 
+#replace null value with -1
+All_Countries_data$expense_pct_gdp <- replace(All_Countries_data$expense_pct_gdp, is.na(All_Countries_data$expense_pct_gdp), -1)
+
+# we count the median value for expense_pct_gdp in the dataset
+median_expense_pct_gdp <- median(All_Countries_data$expense_pct_gdp)
+median_expense_pct_gdp
+
+# Replace the expense_pct_gdp in all rows where it is -1 with the median central_government_debt_pct_gdp
+All_Countries_data$expense_pct_gdp[All_Countries_data$expense_pct_gdp == -1] <- median_expense_pct_gdp
+
+# checking for null values again to make sure no missing data there
+sum(is.na(All_Countries_data$expense_pct_gdp))
+
+# making histogram for the updated expense pct gdp
+updated_expense_pct_gdp <- All_Countries_data$expense_pct_gdp
+hist(updated_expense_pct_gdp, main = "Distribution of expense pct gdp after null removal", xlab = "expense pct gdp", ylab = "Frequency", col = "red", border = "black", breaks= 30)
+# Null value remove effect: from the histogram of updated expense pct gdp we do see that the frequency of median has increased 
+# it is because we replaced 38 null values with median value 
+
+#----------------------------- x x x ----------------------------------------------
+
+#--------------------- Missing data and outliers for internet_pct: ---------------------- 
+
+# checking for null values
+sum(is.na(All_Countries_data$internet_pct))
+
+# we found 0 null value in population coloumn. So there is no null removal required for internet_pct
+
+#----------------------------- x x x ----------------------------------------------
+
+# =========================================== Selecting a dataset to do rest of the data analysis for predicting inflation of a country ==================================
+
+#Since we are predicting GDP of a country, we will use dataset with out GDP outlier for our predictions
+
+# Specify the selected columns
+selected_columns <- c('inflation', 'gdp', 'central_government_debt_pct_gdp', 'unemployment_pct', 'population', 'internet_pct', 'agricultural_land', 'electricity_access_pct', 'democracy_score', 'net_migration', 'birth_rate', 'self_employed_pct')
+
+# Check for null values in selected columns
+null_counts <- colSums(is.na(data_wOut_gdp_outlier[, selected_columns]))
+
+# Display the results
+print(null_counts)
+
+# Select rows with complete data in the selected columns
+selected_dataframe <- data_wOut_gdp_outlier[complete.cases(data_wOut_gdp_outlier[, selected_columns]), selected_columns]
+selected_dataframe
+# =========================================== selected the datframe 'selected_dataframe' above # ===========================================
 
 # ------------------------------------------------------------------------------------------------------------
   # ----------------------------------  Milestone 5: Measures of center and spread------------------------------------ 
@@ -245,35 +375,41 @@ cat('standard deviation for inflation is:', standard_deviation_inflation, '\n')
 #----------------------------- x x x ----------------------------------------------
 
 # ------------------------------------------------------------------------------------------------------------
+# -------------------------- Re-doing measure of center and spread for few more columns for better regression - 11/19/23 ------------
+# ------------------------------------------------------------------------------------------------------------
+
+
+
+# ------------------------------------------------------------------------------------------------------------
   # ----------------------------------  Milestone 6: Scatterplots and correlation ------------------------------------ 
 # ------------------------------------------------------------------------------------------------------------
 
 #------------------------------------ (GDP v/s inflation) scatter plot and co-relation ---------------------------------
 
-# ------------------ for this calculation we will use dataset without GDP outlier -------------------
+# ------------------ for this calculation we will use dataset without inflation outlier 'selected_dataframe' -------------------
 
 # Scatterplot of GDP (x axis) vs inflation (y axis).
 
-plot(inflation ~ gdp, data = data_wOut_gdp_outlier, xlab = "GDP of countries", ylab = "Inflation of countries", main = " (GDP v/s inflation) scatter plot")
+plot(inflation ~ gdp, data = selected_dataframe, xlab = "GDP of countries", ylab = "Inflation of countries", main = " (GDP v/s inflation) scatter plot")
 
 # Correlation of GDP & inflation 
-cat('Correlation of GDP & inflation is: ',cor(data_wOut_gdp_outlier$inflation, data_wOut_gdp_outlier$gdp))
+cat('Correlation of GDP & inflation is: ',cor(selected_dataframe$inflation, selected_dataframe$gdp))
 
-  # output: Correlation of GDP & inflation is:  -0.0163888
+  # output: Correlation of GDP & inflation is:  -0.05123742
 
 
 #------------------------------------ (Unemployment v/s inflation) scatter plot and co-relation ---------------------------------
 
-# ------------------ for this calculation we will use original dataset without unemployment null value -------------------
+# ------------------ for this calculation we will use original dataset without inflation outlier 'selected_dataframe' -------------------
 
 # Scatterplot of unemployment (x axis) vs inflation (y axis).
 
-plot(inflation ~ unemployment_pct, data = All_Countries_data, xlab = "Unemployment Percentage", ylab = "Inflation of countries", main = " (Unemployment v/s inflation) scatter plot")
+plot(inflation ~ unemployment_pct, data = selected_dataframe, xlab = "Unemployment Percentage", ylab = "Inflation of countries", main = " (Unemployment v/s inflation) scatter plot")
 
 # Correlation of Unemployment & inflation 
-cat('Correlation of Unemployment & inflation is: ',cor(All_Countries_data$inflation, All_Countries_data$unemployment_pct))
+cat('Correlation of Unemployment & inflation is: ',cor(selected_dataframe$inflation, selected_dataframe$unemployment_pct))
 
-  # output: Correlation of Unemployment & inflation is:  0.07521563
+  # output: Correlation of Unemployment & inflation is:  0.1296782
 
 
 
@@ -292,6 +428,63 @@ cat('Correlation of Unemployment & GDP is: ',cor(data_wOut_gdp_outlier$gdp, data
 
 
 #----------------------------- x x x ----------------------------------------------
+
+# ------------------------------------------------------------------------------------------------------------
+# -------------------------- Re-doing scatterplots for few more columns for better regression - 11/19/23 ------------
+# ------------------------------------------------------------------------------------------------------------
+
+#------------------------------------ (population v/s inflation) scatter plot and co-relation ---------------------------------
+
+# ------------------ for this calculation we will use dataset without inflation outlier 'selected_dataframe' -------------------
+
+# Scatterplot of population % (x axis) vs inflation (y axis).
+
+plot(inflation ~ population, data = selected_dataframe, xlab = "population", ylab = "Inflation of countries", main = " (population v/s inflation) scatter plot")
+
+# Correlation of population % & inflation 
+cat('Correlation of population % & inflation is: ',cor(selected_dataframe$inflation, selected_dataframe$population))
+# Correlation of population % & inflation is:  -0.02399014
+#----------------------------- x x x ----------------------------------------------
+
+#------------------------------------ (central government debt % v/s inflation) scatter plot and co-relation ---------------------------------
+
+# ------------------ for this calculation we will use dataset without inflation outlier 'selected_dataframe' -------------------
+
+# Scatter plot of central government debt % (x axis) vs inflation (y axis).
+
+plot(inflation ~ central_government_debt_pct_gdp, data = selected_dataframe, xlab = "central government debt %", ylab = "Inflation of countries", main = " (central government debt % v/s inflation) scatter plot")
+
+# Correlation of central government debt % & inflation 
+cat('Correlation of central government debt % & inflation is: ',cor(selected_dataframe$inflation, selected_dataframe$central_government_debt_pct_gdp))
+# Correlation of central government debt % & inflation is:  0.003494778
+#----------------------------- x x x ----------------------------------------------
+
+#------------------------------------ (expense pct gdp v/s inflation) scatter plot and co-relation ---------------------------------
+
+# ------------------ for this calculation we will use dataset without inflation outlier 'selected_dataframe' -------------------
+
+# Scatter plot of population % (x axis) vs inflation (y axis).
+
+plot(inflation ~ expense_pct_gdp, data = selected_dataframe, xlab = "expense pct gdp", ylab = "Inflation of countries", main = " (expense pct gdp v/s inflation) scatter plot")
+
+# Correlation of expense_pct_gdp & inflation
+
+cat('Correlation of expense pct gdp & inflation is: ',cor(selected_dataframe$inflation, selected_dataframe$expense_pct_gdp))
+# Correlation of expense pct gdp & inflation is:  -0.103015
+#----------------------------- x x x ----------------------------------------------
+
+#------------------------------------ (internet pct v/s inflation) scatter plot and co-relation ---------------------------------
+
+# ------------------ for this calculation we will use dataset without inflation outlier 'selected_dataframe' -------------------
+
+# Scatter plot of internet % (x axis) vs inflation (y axis).
+
+plot(inflation ~ internet_pct, data = selected_dataframe, xlab = "internet pct", ylab = "Inflation of countries", main = " (internet pct v/s inflation) scatter plot")
+
+# Correlation of internet_pct & inflation
+
+cat('Correlation of internet pct & inflation is: ',cor(selected_dataframe$inflation, selected_dataframe$internet_pct))
+# Correlation of internet pct & inflation is:  -0.07903079
 
 # ------------------------------------------------------------------------------------------------------------
 # ----------------------------------  Milestone 7: Confidence Intervals------------------------------------ 
@@ -329,4 +522,72 @@ inflation_confidence_interval <- t.test(data_wOut_inflation_outlier$inflation)$c
 cat('95% confidence interval for inflation is: (',inflation_confidence_interval[1], ',', inflation_confidence_interval[2], ')')
 
 # Output : 95% confidence interval for inflation is: ( 8.9464 , 14.07498 )
+
+
+#----------------------------- x x x ----------------------------------------------
+
+# ------------------------------------------------------------------------------------------------------------
+# ----------------------------------  Milestone 8: Linear Regression (predicting GDP)------------------------------------ 
+# ------------------------------------------------------------------------------------------------------------
+
+# ----------------------------------- for this milestone i'm using dataset without outliers. ----------------
+
+          # independent_columns <- c('gdp', 'central_government_debt_pct_gdp', 'expense_pct_gdp', 'unemployment_pct', 'population', 'internet_pct')
+          # 
+          # # Assuming 'inflation' is the dependent variable
+          # formula <- as.formula(paste("inflation ~", paste(independent_columns, collapse = "+")))
+          # 
+          # # Create the linear regression model
+          # model <- lm(formula, data = selected_dataframe)
+          # 
+          # # Summary of the linear regression model
+          # summary(model)
+          # 
+          # independent_columns2 <- c( 'central_government_debt_pct_gdp', 'expense_pct_gdp', 'unemployment_pct')
+          # 
+          # # Assuming 'inflation' is the dependent variable
+          # formula <- as.formula(paste("inflation ~", paste(independent_columns2, collapse = "+")))
+          # 
+          # # Create the linear regression model
+          # model <- lm(formula, data = selected_dataframe)
+          # 
+          # # Summary of the linear regression model
+          # summary(model)
+
+#------------------ first model -----------------------------
+# # new
+# independent_columns <- c('inflation', 'unemployment_pct', 'population', 'internet_pct', 'agricultural_land', 'electricity_access_pct', 'democracy_score', 'net_migration', 'birth_rate', 'self_employed_pct')
+# 
+# # Assuming 'gdp' is the dependent variable
+# formula <- as.formula(paste("gdp ~", paste(independent_columns, collapse = "+")))
+# 
+# # Create the linear regression model
+# model <- lm(formula, data = selected_dataframe)
+# 
+# # Summary of the linear regression model
+# summary(model)
+#------------------ end of first model -----------------------------
+
+#------------------ last but better model -----------------------------
+
+independent_columns2 <- c('unemployment_pct', 'population', 'agricultural_land', 'democracy_score', 'net_migration', 'self_employed_pct')
+
+# Assuming 'gdp' is the dependent variable
+formula <- as.formula(paste("gdp ~", paste(independent_columns2, collapse = "+")))
+
+# Create the linear regression model
+model <- lm(formula, data = selected_dataframe)
+
+# Summary of the linear regression model
+summary(model)
+
+#------------------ end of last but better model -----------------------------
+
+# ------------------- Histogram of residuals ----------------------
+
+# Histogram of residuals
+hist(residuals(model), main = "Histogram of Residuals", xlab = "Residuals",col = "coral" )
+
+# Scatter plot of actual vs. residuals
+plot(selected_dataframe$gdp, residuals(model), main = "Actual vs. Residuals", xlab = "Actual", ylab = "Residuals")
 
