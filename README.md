@@ -1,4 +1,4 @@
-# Data-Science-Project-with-All-country-Data
+# **Mapping Prosperity:** A Global Exploration of GDP Drivers
 I am interested in the "All Countries_details" dataset because it provides comprehensive information about countries around the world, including details such as continent, country name, capital city, latitude, longitude, and agricultural land. This dataset can be valuable for various purposes, including geographical analysis, research, education, and data visualization.
 
 Dataset Details:
