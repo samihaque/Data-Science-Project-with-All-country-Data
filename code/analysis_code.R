@@ -532,28 +532,6 @@ cat('95% confidence interval for inflation is: (',inflation_confidence_interval[
 
 # ----------------------------------- for this milestone i'm using dataset without outliers. ----------------
 
-          # independent_columns <- c('gdp', 'central_government_debt_pct_gdp', 'expense_pct_gdp', 'unemployment_pct', 'population', 'internet_pct')
-          # 
-          # # Assuming 'inflation' is the dependent variable
-          # formula <- as.formula(paste("inflation ~", paste(independent_columns, collapse = "+")))
-          # 
-          # # Create the linear regression model
-          # model <- lm(formula, data = selected_dataframe)
-          # 
-          # # Summary of the linear regression model
-          # summary(model)
-          # 
-          # independent_columns2 <- c( 'central_government_debt_pct_gdp', 'expense_pct_gdp', 'unemployment_pct')
-          # 
-          # # Assuming 'inflation' is the dependent variable
-          # formula <- as.formula(paste("inflation ~", paste(independent_columns2, collapse = "+")))
-          # 
-          # # Create the linear regression model
-          # model <- lm(formula, data = selected_dataframe)
-          # 
-          # # Summary of the linear regression model
-          # summary(model)
-
 #------------------ first model -----------------------------
 # # new
 # independent_columns <- c('inflation', 'unemployment_pct', 'population', 'internet_pct', 'agricultural_land', 'electricity_access_pct', 'democracy_score', 'net_migration', 'birth_rate', 'self_employed_pct')
@@ -591,3 +569,100 @@ hist(residuals(model), main = "Histogram of Residuals", xlab = "Residuals",col =
 # Scatter plot of actual vs. residuals
 plot(selected_dataframe$gdp, residuals(model), main = "Actual vs. Residuals", xlab = "Actual", ylab = "Residuals")
 
+#----------------------------- x x x ----------------------------------------------
+
+# ------------------------------------------------------------------------------------------------------------
+# ----------------------------------  Milestone 9: Hypothesis Testing------------------------------------ 
+# ------------------------------------------------------------------------------------------------------------
+
+#----------------------------- x x x ----------------------------------------------
+
+
+# Set the significance level (alpha)
+alpha <- 0.05
+
+
+#-------------------------------------------
+# Hypothesis 1: Effect of Population on GDP
+#-------------------------------------------
+
+# Null Hypothesis: Population has no significant effect on GDP
+# Alternative Hypothesis: Population has a significant effect on GDP
+
+# Use the summary of the linear regression model to get the p-value for 'population'
+coef_population <- summary(model)$coefficients["population", "Estimate"]
+p_value_population <- summary(model)$coefficients["population", "Pr(>|t|)"]
+
+# Conduct the Hypothesis Test
+if (p_value_population < alpha) {
+  if (coef_population > 0) {
+    cat('Reject the null hypothesis. There is evidence of a significant positive effect of population on GDP.\n')
+  } else if (coef_population < 0) {
+    cat('Reject the null hypothesis. There is evidence of a significant negative effect of population on GDP.\n')
+  } else {
+    cat('Reject the null hypothesis. Population has a significant effect on GDP, but the direction is not specified.\n')
+  }
+} else {
+  cat('Fail to reject the null hypothesis. There is no evidence of a significant effect of population on GDP.\n')
+}
+#------------------------------------------------------------------------------------------------------------
+    # Result: Reject the null hypothesis. There is evidence of a significant positive effect of population on GDP.
+#------------------------------------------------------------------------------------------------------------
+
+
+#-------------------------------------------
+# Hypothesis 2: Effect of Democracy Score on GDP
+#-------------------------------------------
+
+# Null Hypothesis: Democracy score has no significant effect on GDP
+# Alternative Hypothesis: Democracy score has a significant effect on GDP
+
+# Use the summary of the linear regression model to get the p-value for 'democracy_score'
+coef_democracy <- summary(model)$coefficients["democracy_score", "Estimate"]
+p_value_democracy <- summary(model)$coefficients["democracy_score", "Pr(>|t|)"]
+
+# Conduct the Hypothesis Test
+if (p_value_democracy < alpha) {
+  if (coef_democracy > 0) {
+    cat('Reject the null hypothesis. There is evidence of a significant positive effect of democracy score on GDP.\n')
+  } else if (coef_democracy < 0) {
+    cat('Reject the null hypothesis. There is evidence of a significant negative effect of democracy score on GDP.\n')
+  } else {
+    cat('Reject the null hypothesis. Democracy score has a significant effect on GDP, but the direction is not specified.\n')
+  }
+} else {
+  cat('Fail to reject the null hypothesis. There is no evidence of a significant effect of democracy score on GDP.\n')
+}
+
+#------------------------------------------------------------------------------------------------------------
+      # Reject the null hypothesis. There is evidence of a significant positive effect of democracy score on GDP.
+#------------------------------------------------------------------------------------------------------------
+
+
+#-------------------------------------------
+# Hypothesis 3: Effect of self_employed_pct on GDP
+#-------------------------------------------
+
+# Null Hypothesis: self_employed_pct has no significant effect on GDP
+# Alternative Hypothesis: self_employed_pct has a significant effect on GDP
+
+# Using the summary of the linear regression model to get the p-value for 'self_employed_pct'
+coef_self_employed <- summary(model)$coefficients["self_employed_pct", "Estimate"]
+p_value_self_employed <- summary(model)$coefficients["self_employed_pct", "Pr(>|t|)"]
+
+# Conduct the Hypothesis Test
+if (p_value_self_employed < alpha) {
+  if (coef_self_employed > 0) {
+    cat('Reject the null hypothesis. There is evidence of a significant positive effect of self_employed_pct on GDP.\n')
+  } else if (coef_self_employed < 0) {
+    cat('Reject the null hypothesis. There is evidence of a significant negative effect of self_employed_pct on GDP.\n')
+  } else {
+    cat('Reject the null hypothesis. Self_employed_pct has a significant effect on GDP, but the direction is not specified.\n')
+  }
+} else {
+  cat('Fail to reject the null hypothesis. There is no evidence of a significant effect of self_employed_pct on GDP.\n')
+}
+
+#------------------------------------------------------------------------------------------------------------
+    #Reject the null hypothesis. There is evidence of a significant negative effect of self_employed_pct on GDP.
+#------------------------------------------------------------------------------------------------------------
