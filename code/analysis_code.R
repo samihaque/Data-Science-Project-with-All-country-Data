@@ -40,7 +40,7 @@ hist(inflation_data, main = "Distribution of inflation data", xlab = "inflation"
 population_data <- All_Countries_data$population
 
 # Plotting histogram for GDP
-hist(population_data, main = "Distribution of population", xlab = "population", ylab = "Frequency", col = "yellow", border = "black", breaks= 50)
+hist(population_data, main = "Distribution of population", xlab = "population", ylab = "Frequency", col = "yellow", border = "black", breaks= 100)
 
 #----------------------------- x x x ----------------------------------------------
 
@@ -433,18 +433,61 @@ cat('Correlation of Unemployment & GDP is: ',cor(data_wOut_gdp_outlier$gdp, data
 # -------------------------- Re-doing scatterplots for few more columns for better regression - 11/19/23 ------------
 # ------------------------------------------------------------------------------------------------------------
 
-#------------------------------------ (population v/s inflation) scatter plot and co-relation ---------------------------------
+#------------------------------------ (population v/s GDP) scatter plot and co-relation ---------------------------------
 
-# ------------------ for this calculation we will use dataset without inflation outlier 'selected_dataframe' -------------------
+# ------------------ for this calculation we will use dataset without GDP outlier 'selected_dataframe' -------------------
 
 # Scatterplot of population % (x axis) vs inflation (y axis).
 
-plot(inflation ~ population, data = selected_dataframe, xlab = "population", ylab = "Inflation of countries", main = " (population v/s inflation) scatter plot")
+plot(gdp ~ population, data = data_wOut_gdp_outlier, xlab = "population", ylab = "GDP of countries", main = " (population v/s GDP) scatter plot")
 
-# Correlation of population % & inflation 
-cat('Correlation of population % & inflation is: ',cor(selected_dataframe$inflation, selected_dataframe$population))
-# Correlation of population % & inflation is:  -0.02399014
+# Correlation of population % & GDP 
+cat('Correlation of population % & GDP is: ',cor(selected_dataframe$gdp, selected_dataframe$population))
+# Correlation of population % & GDP is:  0.557045
 #----------------------------- x x x ----------------------------------------------
+
+
+#------------------------------------ (Agricultural land v/s GDP) scatter plot and co-relation ---------------------------------
+
+# ------------------ for this calculation we will use dataset without GDP outlier 'selected_dataframe' -------------------
+
+# Scatterplot of Agricultural land (x axis) vs GDP (y axis).
+
+plot(gdp ~ agricultural_land, data = data_wOut_gdp_outlier, xlab = "agricultural land", ylab = "GDP of countries", main = " (agricultural land v/s GDP) scatter plot")
+
+# Correlation of agricultural_land & GDP 
+cat('Correlation of agricultural_land & GDP is: ',cor(selected_dataframe$gdp, selected_dataframe$agricultural_land))
+# Correlation of agricultural_land & GDP is:  0.5086035
+#----------------------------- x x x ----------------------------------------------
+
+
+#------------------------------------ (Democracy score v/s GDP) scatter plot and co-relation ---------------------------------
+
+# ------------------ for this calculation we will use dataset without GDP outlier 'selected_dataframe' -------------------
+
+# Scatterplot of Democracy score (x axis) vs GDP (y axis).
+
+plot(gdp ~ democracy_score, data = data_wOut_gdp_outlier, xlab = "democracy score", ylab = "GDP of countries", main = " (democracy score v/s GDP) scatter plot")
+
+# Correlation of agricultural_land & GDP 
+cat('Correlation of democracy_score & GDP is: ',cor(selected_dataframe$gdp, selected_dataframe$democracy_score))
+# Correlation of democracy_score & GDP is:  0.3302314
+#----------------------------- x x x ----------------------------------------------
+
+
+#------------------------------------ (Net migration v/s GDP) scatter plot and co-relation ---------------------------------
+
+# ------------------ for this calculation we will use dataset without GDP outlier 'selected_dataframe' -------------------
+
+# Scatterplot of Net migration (x axis) vs GDP (y axis).
+
+plot(gdp ~ net_migration, data = data_wOut_gdp_outlier, xlab = "net migration", ylab = "GDP of countries", main = " (net migration v/s GDP) scatter plot")
+
+# Correlation of net_migration & GDP 
+cat('Correlation of net_migration & GDP is: ',cor(selected_dataframe$gdp, selected_dataframe$net_migration))
+# Correlation of net_migration & GDP is:  0.1369982
+#----------------------------- x x x ----------------------------------------------
+
 
 #------------------------------------ (central government debt % v/s inflation) scatter plot and co-relation ---------------------------------
 
@@ -485,6 +528,9 @@ plot(inflation ~ internet_pct, data = selected_dataframe, xlab = "internet pct",
 
 cat('Correlation of internet pct & inflation is: ',cor(selected_dataframe$inflation, selected_dataframe$internet_pct))
 # Correlation of internet pct & inflation is:  -0.07903079
+
+
+
 
 # ------------------------------------------------------------------------------------------------------------
 # ----------------------------------  Milestone 7: Confidence Intervals------------------------------------ 
